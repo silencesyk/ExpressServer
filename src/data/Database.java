@@ -6,12 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Database {
+import logicservice.DataBaseService;
+
+public class Database implements DataBaseService{
 	
-		private Connection  connect;
 	
 	
-		public void connect(){
+		public Connection connect(){
+			Connection connect = null;
 			 try {
 			      Class.forName("com.mysql.jdbc.Driver");     
 			     System.out.println("Success loading Mysql Driver!");
@@ -21,7 +23,7 @@ public class Database {
 			      e.printStackTrace();
 			    }
 			 try {
-				connect = DriverManager.getConnection(
+				 connect = DriverManager.getConnection(
 				          "jdbc:mysql://localhost:3306/expresssystem","root","123456");
 				System.out.println("connect ExpressSystem success");
 			} catch (SQLException e) {
@@ -29,29 +31,8 @@ public class Database {
 				e.printStackTrace();
 			}
 			 
-			 
+			 return connect;
 			 
 		}
-		public boolean isLogin(String uname,String password,String identity){
-		      PreparedStatement pstmt;
-			try {
-				pstmt = connect.prepareStatement("Select * from user where name =  ?");
-			
-		      pstmt.setString(1, uname);
-		      ResultSet rs = pstmt.executeQuery();
-		      if(rs == null){
-		    	  return false;
-		      }
-		      while(rs.next()){
-		    	  
-		    	  if(rs.getString("password").equals(password)&&rs.getString("identity").equals(identity)){
-		    		  return true;
-		    	  }
-		      }
-		      return false;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return false;
-		}
+
 }

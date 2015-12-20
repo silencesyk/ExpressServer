@@ -24,7 +24,7 @@ public class Database implements DataBaseService{
 			    }
 			 try {
 				 connect = DriverManager.getConnection(
-				          "jdbc:mysql://localhost:3306/expresssystem","root","123456");
+				          "jdbc:mysql://localhost:3306/expresssystem?useUnicode=true&characterEncoding=utf-8","root","123456");
 				System.out.println("connect ExpressSystem success");
 			} catch (SQLException e) {
 				System.out.println("connect ExpressSystem error");
